@@ -1,3 +1,5 @@
+import json
+
 import ir
 import ir_lowering
 
@@ -137,7 +139,11 @@ def main():
 
     _root_builder.circuits['foo'] = root
 
-    ir_lowering.compile_circuits(_root_builder.circuits, filename='circuitsim/gen2.sim')
+    with open('circuitsim/intrinsics.sim', 'r') as f:
+        native_circuits = json.load(f)['circuits']
+
+    ir_lowering.compile_circuits(_root_builder.circuits, filename='circuitsim/gen2.sim',
+                                 native_circuits=native_circuits)
 
 
 if __name__ == '__main__':

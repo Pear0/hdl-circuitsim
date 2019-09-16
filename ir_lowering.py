@@ -197,7 +197,7 @@ def perform_lowering(circuit_name, root: ir.ASTCircuit, other_specs):
     return circuit
 
 
-def compile_circuits(circuit_map, filename=None):
+def compile_circuits(circuit_map, filename=None, native_circuits=None):
     spec_map = {}
 
     for name, circuit in circuit_map.items():
@@ -206,7 +206,7 @@ def compile_circuits(circuit_map, filename=None):
 
         spec_map[name] = circuits.CircuitSpec(name, circuits.DipCircuitLayoutSpec, inputs, outputs)
 
-    compiled_circuits = []
+    compiled_circuits = list(native_circuits) if native_circuits else []
 
     for name, circuit in circuit_map.items():
         compiled = perform_lowering(name, circuit, spec_map)
