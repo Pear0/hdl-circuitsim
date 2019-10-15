@@ -22,6 +22,18 @@ def flatten_to_signal(body: ir.ASTCircuit, expr: ir.ASTExpr) -> ir.ASTPort:
 
         return dst_port
 
+    if isinstance(expr, ir.ASTMultiplexer):
+        gate_bitsize = expr.get_bitsize()
+
+        lowered_selector = flatten_to_signal(body, expr.selector)
+        lowered_children = {k: flatten_to_signal(body, child) for k, child in expr.children.items()}
+
+        dst_port = ir.ASTPort(body.generate_internal_signal(gate_bitsize), gate_bitsize)
+
+        body.children.append(ir.ASTAssign(dst_port, ir.ASTMultiplexer(lowered_selector, lowered_children)))
+
+        return dst_port
+
     raise ValueError('flattening not supported for type: {}'.format(expr))
 
 
@@ -48,6 +60,7 @@ def flatten_body(body: ir.ASTCircuit):
                 if child.rising_edge and child.enabled:
                     src_signal = flatten_to_signal(body, child.src)
                     edge_signal = flatten_to_signal(body, child.rising_edge)
+                    write_enable = flatten_to_signal(body, child.write_enable)
                     enabled_signal = flatten_to_signal(body, child.enabled)
 
                     # <-[enabled: port] intermediate_signal <-[rising_edge: port]
@@ -56,18 +69,21 @@ def flatten_body(body: ir.ASTCircuit):
                                                    src_signal.bitsize)
 
                     # <-[rising_edge: port]
-                    body.children.append(ir.ASTAssign(intermediate_port, src_signal, rising_edge=edge_signal))
+                    body.children.append(ir.ASTAssign(intermediate_port, src_signal,
+                                                      rising_edge=edge_signal, write_enable=write_enable))
 
                     # <-[enabled: port]
                     child.src = intermediate_port
-                    child.enabled = edge_signal
+                    child.enabled = enabled_signal
                     child.rising_edge = None
                 elif child.rising_edge:
                     src_signal = flatten_to_signal(body, child.src)
                     edge_signal = flatten_to_signal(body, child.rising_edge)
+                    write_enable = flatten_to_signal(body, child.write_enable)
 
                     child.src = src_signal
                     child.rising_edge = edge_signal
+                    child.write_enable = write_enable
                 elif child.enabled:
                     src_signal = flatten_to_signal(body, child.src)
                     enabled_signal = flatten_to_signal(body, child.enabled)
@@ -79,10 +95,26 @@ def flatten_body(body: ir.ASTCircuit):
                 lowered_children = [flatten_to_signal(body, child) for child in child.src.get_children()]
 
                 child.src = ir.ASTLogicGate(child.src.type, lowered_children)
+            elif isinstance(child.src, ir.ASTMultiplexer):
+                selector = flatten_to_signal(body, child.src.selector)
+                lowered_children = {k: flatten_to_signal(body, child) for k, child in child.src.children.items()}
+
+                child.src = ir.ASTMultiplexer(selector, lowered_children)
             elif isinstance(child.src, ir.ASTPort):
                 pass
             else:
                 raise ValueError('cannot flatten root assignment with node: {}'.format(child.src))
+        elif isinstance(child, ir.ASTSubCircuit):
+
+            if child.inputs is child.outputs:
+                # somebody passed the same dict for both fields, don't duplicate dict now
+
+                child.inputs = {k: flatten_to_signal(body, child) for k, child in child.inputs.items()}
+                child.outputs = child.inputs
+
+            else:
+                child.inputs = {k: flatten_to_signal(body, child) for k, child in child.inputs.items()}
+                child.outputs = {k: flatten_to_signal(body, child) for k, child in child.outputs.items()}
 
         else:
             print('Skipping {}, don\'t know how to flatten'.format(child))
@@ -98,7 +130,7 @@ def lower_complex_assigns(body: ir.ASTCircuit):
 
                 body.children[child_i] = ir.ASTSubCircuit('register', {
                     'Clock': child.rising_edge,
-                    'Enable': ir.ASTPort('__const1_on', 1),
+                    'Enable': child.write_enable,
                     'In': child.src,
                 }, {'Out': child.dst})
 
@@ -113,7 +145,8 @@ def lower_complex_assigns(body: ir.ASTCircuit):
                 }, {'Out': child.dst})
 
 
-def get_spec(name, other_specs, size=1):
+def get_spec(name, other_specs, size=1, child: ir.ASTSubCircuit = None):
+
     if name == 'register':
         return circuits.GateCircuitSpec('register', 1, size,
                                         inputs=[('In', size), ('Enable', 1), ('Clock', 1), ('Clear', 1)],
@@ -123,10 +156,13 @@ def get_spec(name, other_specs, size=1):
                                         inputs=[('In', size), ('Enable', 1)],
                                         outputs=[('Out', size)])
     if name in ('and', 'or', 'not', 'xor'):
-        return circuits.GateCircuitSpec(name, 2, size)
+        return circuits.GateCircuitSpec(name, 1 if name == 'not' else 2, size)
 
     if name == 'bypass':
         return circuits.BypassCircuitSpec()
+
+    if name == 'rom':
+        return circuits.ROMCircuitSpec(child.data)
 
     return other_specs[name]
 
@@ -136,6 +172,7 @@ def perform_lowering(circuit_name, root: ir.ASTCircuit, other_specs):
 
     flatten_body(root)
     lower_complex_assigns(root)
+    flatten_body(root)
 
     input_signals = [(x.name, x.bitsize) for x in root.input_signals]
     output_signals = [(x.name, x.bitsize) for x in root.output_signals]
@@ -153,7 +190,7 @@ def perform_lowering(circuit_name, root: ir.ASTCircuit, other_specs):
             if child.outputs:
                 bitsize = next(iter(child.outputs.values())).bitsize
 
-            spec = get_spec(child.type, other_specs, bitsize)  # type: circuits.CircuitSpec
+            spec = get_spec(child.type, other_specs, bitsize, child=child)  # type: circuits.CircuitSpec
 
             inputs = {}
             for c_name, c_bitsize in spec.inputs:
@@ -183,6 +220,21 @@ def perform_lowering(circuit_name, root: ir.ASTCircuit, other_specs):
                 outputs = {'X': child.dst.get_render_name()}
 
                 circuit.components.append(circuits.CircuitEmbedding(spec, inputs, outputs))
+            elif isinstance(child.src, ir.ASTMultiplexer):
+                bitsize = child.src.get_bitsize()
+                selector_bits = child.src.selector.get_bitsize()
+
+                spec = circuits.MultiplexerCircuitSpec(bitsize, selector_bits)  # type: circuits.CircuitSpec
+
+                inputs = {}
+                for i, g_child in child.src.children.items():
+                    inputs[str(i)] = g_child.get_render_name()
+
+                inputs['Selector'] = child.src.selector.get_render_name()
+
+                outputs = {'Out': child.dst.get_render_name()}
+
+                circuit.components.append(circuits.CircuitEmbedding(spec, inputs, outputs))
             elif isinstance(child.src, ir.ASTPort):
                 spec = get_spec('bypass', other_specs)  # type: circuits.CircuitSpec
 
@@ -191,14 +243,29 @@ def perform_lowering(circuit_name, root: ir.ASTCircuit, other_specs):
                 circuit.components.append(circuits.CircuitEmbedding(spec, inputs, outputs))
             else:
                 raise ValueError('die')
+        elif isinstance(child, ir.ASTDecoder):
+            bitsize = child.input.get_bitsize()
+
+            spec = circuits.DecoderCircuitSpec(bitsize)
+
+            inputs = {'Selector': child.input.get_render_name()}
+
+            outputs = {}
+            for c_name, c_bitsize in spec.outputs:
+                if int(c_name) in child.outputs:
+                    outputs[c_name] = child.outputs[int(c_name)].get_render_name()
+
+            circuit.components.append(circuits.CircuitEmbedding(spec, inputs, outputs))
         else:
             raise ValueError('die')
 
     return circuit
 
 
-def compile_circuits(circuit_map, filename=None, native_circuits=None):
+def compile_circuits(circuit_map, filename=None, native_circuits=None, defines=()):
     spec_map = {}
+    for name, inputs, outputs in defines:
+        spec_map[name] = circuits.CircuitSpec(name, circuits.DipCircuitLayoutSpec, inputs, outputs)
 
     for name, circuit in circuit_map.items():
         inputs = [(x.name, x.bitsize) for x in circuit.input_signals]

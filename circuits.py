@@ -1,5 +1,6 @@
-from collections import Counter, namedtuple
+import math
 
+from collections import Counter, namedtuple
 from util import _signal_name_re
 
 SimVar = namedtuple('SimVar', ('name', 'size'))
@@ -13,15 +14,15 @@ class Tiler(object):
         self.x = 0
         self.y = 0
 
-    def next_tile(self):
+    def next_tile(self, height=None):
         try:
-            return (self.left_shift + self.x) * self.scale, self.y * self.scale // 3
+            return int((self.left_shift + self.x) * self.scale), int(self.y * self.scale)
         finally:
             if self.y >= 4:
                 self.x += 1
                 self.y = 0
             else:
-                self.y += 1
+                self.y += (height or self.scale) / self.scale
 
 
 class CircuitLayoutSpec(object):
@@ -35,6 +36,9 @@ class CircuitLayoutSpec(object):
         raise NotImplementedError
 
     def get_output_pos(self, pos, index):
+        raise NotImplementedError
+
+    def get_height(self):
         raise NotImplementedError
 
     def connect_input_direct(self, index):
@@ -59,7 +63,11 @@ class DipCircuitLayoutSpec(CircuitLayoutSpec):
         return pos[0], pos[1] + 1 + index
 
     def get_output_pos(self, pos, index):
-        return pos[0], pos[1] + 1 + index + self._num_inputs
+        # return pos[0], pos[1] + 1 + index + self._num_inputs
+        return pos[0] + 3, pos[1] + 1 + index
+
+    def get_height(self):
+        return max(5, self.num_inputs(), self.num_outputs()) + 4
 
 
 class GateCircuitLayoutSpec(CircuitLayoutSpec):
@@ -97,6 +105,30 @@ class GateCircuitLayoutSpec(CircuitLayoutSpec):
     def get_output_pos(self, pos, index):
         return pos[0] + 4, pos[1] + 2 + self.input_offset(self.num_outputs(), index)
 
+    def get_height(self):
+        return max(5, self.num_inputs()) + 1
+
+
+class GateNotCircuitLayoutSpec(CircuitLayoutSpec):
+    def __init__(self, num_inputs, num_outputs):
+        assert num_inputs == 1
+        assert num_outputs == 1
+
+    def num_inputs(self):
+        return 1
+
+    def num_outputs(self):
+        return 1
+
+    def get_input_pos(self, pos, index):
+        return pos[0], pos[1] + 1
+
+    def get_output_pos(self, pos, index):
+        return pos[0] + 3, pos[1] + 1
+
+    def get_height(self):
+        return 5
+
 
 class BufferCircuitLayoutSpec(CircuitLayoutSpec):
     def __init__(self, inputs, outputs):
@@ -117,6 +149,9 @@ class BufferCircuitLayoutSpec(CircuitLayoutSpec):
 
     def get_output_pos(self, pos, index):
         return pos[0] + 2, pos[1] + 1
+
+    def get_height(self):
+        return 5
 
 
 class DFlipFlopCircuitLayoutSpec(CircuitLayoutSpec):
@@ -150,6 +185,9 @@ class DFlipFlopCircuitLayoutSpec(CircuitLayoutSpec):
     def get_output_pos(self, pos, index):
         return pos[0] + 4, pos[1] + 1
 
+    def get_height(self):
+        return 7
+
 
 class RegisterCircuitLayoutSpec(CircuitLayoutSpec):
     def __init__(self, inputs, outputs):
@@ -180,6 +218,9 @@ class RegisterCircuitLayoutSpec(CircuitLayoutSpec):
     def get_output_pos(self, pos, index):
         return pos[0] + 4, pos[1] + 2
 
+    def get_height(self):
+        return 7
+
 
 class SplitterCircuitLayoutSpec(CircuitLayoutSpec):
     def __init__(self, num_inputs, outputs):
@@ -197,6 +238,59 @@ class SplitterCircuitLayoutSpec(CircuitLayoutSpec):
 
     def get_output_pos(self, pos, index):
         return pos[0] + 2, pos[1] + 1 + self.outputs - index
+
+    def get_height(self):
+        return 3 + self.outputs
+
+
+class MultiplexerCircuitLayoutSpec(CircuitLayoutSpec):
+    def __init__(self, inputs, outputs):
+        self.selector_bits = math.log2(inputs - 1)
+        assert (self.selector_bits - int(self.selector_bits) + 1e-5) < 1e-3
+        self.selector_bits = int(self.selector_bits)
+
+        assert outputs == 1
+
+    def num_inputs(self):
+        return (2 ** self.selector_bits) + 1
+
+    def num_outputs(self):
+        return 1
+
+    def get_input_pos(self, pos, index):
+        if index == 2 ** self.selector_bits:
+            return pos[0] + 1, pos[1] + (2 ** self.selector_bits) + 2
+
+        return pos[0], pos[1] + 1 + index
+
+    def get_output_pos(self, pos, index):
+        return pos[0] + 3, pos[1] + (2 ** self.selector_bits + 2) // 2
+
+    def get_height(self):
+        return 3 + (2 ** self.selector_bits + 2)
+
+
+class DecoderCircuitLayoutSpec(CircuitLayoutSpec):
+    def __init__(self, inputs, outputs):
+        assert inputs == 1
+        self.selector_bits = math.log2(outputs)
+        assert (self.selector_bits - int(self.selector_bits) + 1e-5) < 1e-3
+        self.selector_bits = int(self.selector_bits)
+
+    def num_inputs(self):
+        return 1
+
+    def num_outputs(self):
+        return 2 ** self.selector_bits
+
+    def get_input_pos(self, pos, index):
+        return pos[0] + 2, pos[1] + (2 ** self.selector_bits) + 2
+
+    def get_output_pos(self, pos, index):
+        return pos[0] + 3, pos[1] + 1 + index
+
+    def get_height(self):
+        return 3 + (2 ** self.selector_bits + 2)
 
 
 class CircuitSpec:
@@ -260,6 +354,9 @@ class BypassCircuitLayoutSpec(CircuitLayoutSpec):
     def get_output_pos(self, pos, index):
         return pos
 
+    def get_height(self):
+        return 3
+
 
 class BypassCircuitSpec(CircuitSpec):
     def __init__(self, size=1):
@@ -270,6 +367,82 @@ class BypassCircuitSpec(CircuitSpec):
 
     def properties(self):
         props = super().properties()
+        return props
+
+
+class MultiplexerCircuitSpec(CircuitSpec):
+    def __init__(self, size=1, selector=1):
+        self.selector = selector
+        inputs = [(str(i), size) for i in range(2 ** selector)] + [('Selector', selector)]
+        super().__init__('multiplexer', MultiplexerCircuitLayoutSpec, inputs, [('Out', size)])
+
+    def get_type(self):
+        return 'com.ra4king.circuitsim.gui.peers.plexers.MultiplexerPeer'
+
+    def properties(self):
+        props = super().properties()
+        props['Selector bits'] = str(self.selector)
+        props['Direction'] = 'EAST'
+        props['Bitsize'] = str(self.outputs[0][1])
+        return props
+
+
+class DecoderCircuitSpec(CircuitSpec):
+    def __init__(self, selector=1):
+        self.selector = selector
+        outputs = [(str(i), 1) for i in range(2 ** selector)]
+        super().__init__('decoder', DecoderCircuitLayoutSpec, [('Selector', selector)], outputs)
+
+    def get_type(self):
+        return 'com.ra4king.circuitsim.gui.peers.plexers.DecoderPeer'
+
+    def properties(self):
+        props = super().properties()
+        props['Selector bits'] = str(self.selector)
+        props['Direction'] = 'EAST'
+        return props
+
+
+class ROMCircuitLayoutSpec(CircuitLayoutSpec):
+    def __init__(self, num_inputs, outputs):
+        assert num_inputs == 2
+        assert outputs == 1
+
+    def num_inputs(self):
+        return 2
+
+    def num_outputs(self):
+        return 1
+
+    def get_input_pos(self, pos, index):
+        if index == 0:
+            return pos[0], pos[1] + 2
+
+        return pos[0] + 4, pos[1] + 5
+
+    def get_output_pos(self, pos, index):
+        return pos[0] + 9, pos[1] + 2
+
+    def get_height(self):
+        return 7
+
+
+class ROMCircuitSpec(CircuitSpec):
+    def __init__(self, data):
+        self.address_bits = data['address_bits']
+        self.data_bits = data['data_bits']
+        self.contents = data.get('contents', '')
+        super().__init__('rom', ROMCircuitLayoutSpec,
+                         [('Address', self.address_bits), ('Enable', 1)], [('Data', self.data_bits)])
+
+    def get_type(self):
+        return 'com.ra4king.circuitsim.gui.peers.memory.ROMPeer'
+
+    def properties(self):
+        props = super().properties()
+        props['Address bits'] = str(self.address_bits)
+        props['Bitsize'] = str(self.data_bits)
+        props['Contents'] = self.contents
         return props
 
 
@@ -295,6 +468,7 @@ gate_special_layouts = {
     'buffer': BufferCircuitLayoutSpec,
     'dflipflop': DFlipFlopCircuitLayoutSpec,
     'register': RegisterCircuitLayoutSpec,
+    'not': GateNotCircuitLayoutSpec,
 }
 
 BarSpec = CircuitSpec('Bar', DipCircuitLayoutSpec, [('A', 1), ('B', 1)], [('C', 1)])
@@ -375,7 +549,7 @@ class SimCircuit(object):
         self.output_signals = [('X', 1)]
         self.internal_signals = [('FB', 1), ('FC', 1), ('A', 5)]
 
-        self.tiler = Tiler(40, left_shift=1)
+        self.tiler = Tiler(55, left_shift=1)
         self.component_counter = Counter()
 
         self.components = [
@@ -458,7 +632,7 @@ class SimCircuit(object):
 
         x, y = 5, 5
         for name, size, is_input in all_io:
-            if is_input and name.startswith('__const1'):
+            if is_input and name.startswith('__const'):
                 sim_components.append({
                     "name": "com.ra4king.circuitsim.gui.peers.wiring.ConstantPeer",
                     "x": x,
@@ -471,6 +645,14 @@ class SimCircuit(object):
                         "Bitsize": str(size)
                     }
                 })
+
+                offset = self.get_io_offset(size)
+                wires.append({
+                    "x": x,
+                    "y": y + offset[1],
+                    "length": offset[0],
+                    "isHorizontal": True
+                })
             else:
                 sim_components.append({
                     "name": "com.ra4king.circuitsim.gui.peers.wiring.PinPeer",
@@ -480,10 +662,19 @@ class SimCircuit(object):
                         "Label location": "WEST",
                         "Label": name,
                         "Is input?": "Yes" if is_input else "No",
-                        "Direction": "EAST",
+                        "Direction": "EAST" if is_input else "WEST",
                         "Bitsize": str(size)
                     }
                 })
+
+                if not is_input:
+                    offset = self.get_io_offset(size)
+                    wires.append({
+                        "x": x,
+                        "y": y + offset[1],
+                        "length": offset[0],
+                        "isHorizontal": True
+                    })
 
             offset = self.get_io_offset(size)
             sim_components.append({
@@ -574,7 +765,9 @@ class SimCircuit(object):
         materialized_components.extend(self.materialize_splitters(all_signals))
 
         for comp in materialized_components:
-            pos = self.tiler.next_tile()
+            layout = comp.spec.layout
+
+            pos = self.tiler.next_tile(layout.get_height())
             pos = (pos[0] + self.tiler.scale // 2, pos[1] + self.tiler.scale // 2)
 
             self.component_counter[comp.spec.name] += 1
@@ -589,8 +782,6 @@ class SimCircuit(object):
                     "y": pos[1],
                     "properties": props,
                 })
-
-            layout = comp.spec.layout
 
             left_offset = int(self.tiler.scale * 0.4)
 
@@ -612,7 +803,7 @@ class SimCircuit(object):
                     "Bitsize": str(bitsize)
                 }
 
-                if mapped_name.startswith('__const'):
+                if mapped_name.startswith('__const1'):
                     name = 'com.ra4king.circuitsim.gui.peers.wiring.ConstantPeer'
                     props['Value'] = '1' * bitsize if mapped_name.endswith('on') else '0' * bitsize
                     props['Label'] = ''

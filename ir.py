@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Dict
 
 import util
 
@@ -30,7 +30,7 @@ class ASTExpr(ASTNode):
 
 class ASTPort(ASTExpr):
     def __init__(self, name, bitsize):
-        self.name = name
+        self.name = str(name)
         self.bitsize = bitsize
 
     def __getitem__(self, item):
@@ -68,10 +68,16 @@ class ASTSubPort(ASTPort):
 
 
 class ASTAssign(ASTNode):
-    def __init__(self, dst, src, rising_edge=None, enabled=None):
+    def __init__(self, dst, src, rising_edge=None, enabled=None, write_enable=None):
+        if write_enable and not rising_edge:
+            rising_edge = ASTPort('clk', 1)
+        if rising_edge and not write_enable:
+            write_enable = ASTPort('__const1_on', 1)
+
         self.dst = dst
         self.src = src
         self.rising_edge = rising_edge  # save dst, only update on rising edge
+        self.write_enable = write_enable
         self.enabled = enabled  # tri-state whenever this is false
 
     def get_children(self):
@@ -113,9 +119,40 @@ class ASTLogicGate(ASTExpr):
         return bitsize
 
 
+class ASTMultiplexer(ASTExpr):
+    def __init__(self, selector: ASTExpr, children: Dict[int, ASTExpr] = None):
+        self.selector = selector
+        self.children = children or {}
+
+    def get_children(self):
+        return [self.selector] + list(self.children.values())
+
+    def get_bitsize(self):
+        bitsize = None
+
+        for child in self.children.values():
+            child_size = child.get_bitsize()
+            if bitsize is not None and bitsize != child_size:
+                raise ValueError('mismatched bitsize on logic gate')
+            bitsize = child_size
+
+        return bitsize
+
+
+class ASTDecoder(ASTNode):
+    def __init__(self, input: ASTExpr = None, outputs=None):
+        self.input = input
+        self.outputs = outputs
+
+    def get_children(self):
+        return [self.input] + list(self.outputs.values())
+
+
 class ASTSubCircuit(ASTNode):
-    def __init__(self, type, inputs=None, outputs=None):
+    def __init__(self, type, inputs=None, outputs=None, native=False, data=None):
         self.type = type
+        self.native = native
+        self.data = data
         self.inputs = inputs or {}
         self.outputs = outputs or {}
 
@@ -131,9 +168,13 @@ class ASTCircuit(ASTBlock):
         self.internal_signals = {
             '__const1_on': 1,
             '__const1_off': 1,
+            '__const1_x': 1,
+            # '__const32_on': 32,
+            # '__const32_off': 32,
         }  # name -> bitsize
 
     def get_port(self, name):
+        name = str(name)
         for port in self.input_signals + self.output_signals:
             if port.name == name:
                 return port
@@ -141,6 +182,17 @@ class ASTCircuit(ASTBlock):
         for port_name, size in self.internal_signals.items():
             if port_name == name:
                 return ASTPort(name, size)
+
+    def get_or_create(self, name, size):
+        name = str(name)
+        p = self.get_port(name)
+        if p:
+            if p.bitsize != size:
+                raise ValueError
+            return p
+
+        self.internal_signals[name] = size
+        return self.get_port(name)
 
     def generate_internal_signal(self, bitsize):
         import random
@@ -168,11 +220,11 @@ class ASTCircuit(ASTBlock):
 
             if isinstance(ref, ASTSubPort):
                 if ref.end >= port_map[ref.name]:
-                    raise ValueError('invalid, sub port end == {} but signal bitsize == {}'
-                                     .format(ref.bitsize, port_map[ref.name]))
+                    raise ValueError('invalid, sub port {}: end == {} but signal bitsize == {}'
+                                     .format(ref.name, ref.bitsize, port_map[ref.name]))
             elif ref.bitsize != port_map[ref.name]:
-                raise ValueError('invalid, port bitsize == {} but signal bitsize == {}'
-                                 .format(ref.bitsize, port_map[ref.name]))
+                raise ValueError('invalid, port {}: bitsize == {} but signal bitsize == {}'
+                                 .format(ref.name, ref.bitsize, port_map[ref.name]))
 
 
 
