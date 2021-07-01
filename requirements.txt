@@ -1,0 +1,6 @@
+# git+https://github.com/Nic30/hdlConvertor.git
+# hdlConvertor
+
+pyverilog
+# pygraphviz
+

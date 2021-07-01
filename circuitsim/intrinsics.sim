@@ -1,0 +1,1739 @@
+{
+  "version": "1.8.2",
+  "globalBitSize": 1,
+  "clockSpeed": 1,
+  "circuits": [
+    {
+      "name": "Main",
+      "components": [
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.Probe",
+          "x": 43,
+          "y": 6,
+          "properties": {
+            "Label location": "NORTH",
+            "Label": "PC",
+            "Direction": "SOUTH",
+            "Bitsize": "32"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.Probe",
+          "x": 61,
+          "y": 6,
+          "properties": {
+            "Label location": "NORTH",
+            "Label": "IR",
+            "Direction": "SOUTH",
+            "Bitsize": "32"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.Probe",
+          "x": 111,
+          "y": 26,
+          "properties": {
+            "Label location": "NORTH",
+            "Label": "$v0",
+            "Direction": "WEST",
+            "Bitsize": "32"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.Probe",
+          "x": 111,
+          "y": 17,
+          "properties": {
+            "Label location": "NORTH",
+            "Label": "$at",
+            "Direction": "WEST",
+            "Bitsize": "32"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.Probe",
+          "x": 111,
+          "y": 35,
+          "properties": {
+            "Label location": "NORTH",
+            "Label": "$a0",
+            "Direction": "WEST",
+            "Bitsize": "32"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.Probe",
+          "x": 111,
+          "y": 44,
+          "properties": {
+            "Label location": "NORTH",
+            "Label": "$a1",
+            "Direction": "WEST",
+            "Bitsize": "32"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.Probe",
+          "x": 111,
+          "y": 62,
+          "properties": {
+            "Label location": "NORTH",
+            "Label": "$t0",
+            "Direction": "WEST",
+            "Bitsize": "32"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.Probe",
+          "x": 111,
+          "y": 53,
+          "properties": {
+            "Label location": "NORTH",
+            "Label": "$a2",
+            "Direction": "WEST",
+            "Bitsize": "32"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.Probe",
+          "x": 111,
+          "y": 71,
+          "properties": {
+            "Label location": "NORTH",
+            "Label": "$t1",
+            "Direction": "WEST",
+            "Bitsize": "32"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.Probe",
+          "x": 127,
+          "y": 8,
+          "properties": {
+            "Label location": "NORTH",
+            "Label": "$t2",
+            "Direction": "WEST",
+            "Bitsize": "32"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.Probe",
+          "x": 127,
+          "y": 17,
+          "properties": {
+            "Label location": "NORTH",
+            "Label": "$s0",
+            "Direction": "WEST",
+            "Bitsize": "32"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.Probe",
+          "x": 127,
+          "y": 26,
+          "properties": {
+            "Label location": "NORTH",
+            "Label": "$s1",
+            "Direction": "WEST",
+            "Bitsize": "32"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.Probe",
+          "x": 127,
+          "y": 35,
+          "properties": {
+            "Label location": "NORTH",
+            "Label": "$s2",
+            "Direction": "WEST",
+            "Bitsize": "32"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.Probe",
+          "x": 127,
+          "y": 44,
+          "properties": {
+            "Label location": "NORTH",
+            "Label": "$k0",
+            "Direction": "WEST",
+            "Bitsize": "32"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.Probe",
+          "x": 127,
+          "y": 53,
+          "properties": {
+            "Label location": "NORTH",
+            "Label": "$sp",
+            "Direction": "WEST",
+            "Bitsize": "32"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.Probe",
+          "x": 127,
+          "y": 71,
+          "properties": {
+            "Label location": "NORTH",
+            "Label": "$ra",
+            "Direction": "WEST",
+            "Bitsize": "32"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.Probe",
+          "x": 127,
+          "y": 62,
+          "properties": {
+            "Label location": "NORTH",
+            "Label": "$fp",
+            "Direction": "WEST",
+            "Bitsize": "32"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.Probe",
+          "x": 111,
+          "y": 8,
+          "properties": {
+            "Label location": "NORTH",
+            "Label": "$zero",
+            "Direction": "WEST",
+            "Bitsize": "32"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.misc.Text",
+          "x": 10,
+          "y": 68,
+          "properties": {
+            "Text": "Single Stepper\nTo Enable Single Step Mode, Set Run\u003d1 to 0 and enable the clock.\nThe output clock will be stopped until the button is pressed to continue."
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.Tunnel",
+          "x": 105,
+          "y": 10,
+          "properties": {
+            "Label": "iReg0",
+            "Direction": "EAST",
+            "Bitsize": "32"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.Tunnel",
+          "x": 105,
+          "y": 19,
+          "properties": {
+            "Label": "iReg1",
+            "Direction": "EAST",
+            "Bitsize": "32"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.Tunnel",
+          "x": 105,
+          "y": 28,
+          "properties": {
+            "Label": "iReg2",
+            "Direction": "EAST",
+            "Bitsize": "32"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.Tunnel",
+          "x": 105,
+          "y": 37,
+          "properties": {
+            "Label": "iReg3",
+            "Direction": "EAST",
+            "Bitsize": "32"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.Tunnel",
+          "x": 105,
+          "y": 46,
+          "properties": {
+            "Label": "iReg4",
+            "Direction": "EAST",
+            "Bitsize": "32"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.Tunnel",
+          "x": 105,
+          "y": 55,
+          "properties": {
+            "Label": "iReg5",
+            "Direction": "EAST",
+            "Bitsize": "32"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.Tunnel",
+          "x": 105,
+          "y": 64,
+          "properties": {
+            "Label": "iReg6",
+            "Direction": "EAST",
+            "Bitsize": "32"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.Tunnel",
+          "x": 105,
+          "y": 73,
+          "properties": {
+            "Label": "iReg7",
+            "Direction": "EAST",
+            "Bitsize": "32"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.Tunnel",
+          "x": 121,
+          "y": 10,
+          "properties": {
+            "Label": "iReg8",
+            "Direction": "EAST",
+            "Bitsize": "32"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.Tunnel",
+          "x": 121,
+          "y": 19,
+          "properties": {
+            "Label": "iReg9",
+            "Direction": "EAST",
+            "Bitsize": "32"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.Tunnel",
+          "x": 41,
+          "y": 22,
+          "properties": {
+            "Label": "iReg0",
+            "Direction": "WEST",
+            "Bitsize": "32"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.Tunnel",
+          "x": 41,
+          "y": 23,
+          "properties": {
+            "Label": "iReg1",
+            "Direction": "WEST",
+            "Bitsize": "32"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.Tunnel",
+          "x": 41,
+          "y": 24,
+          "properties": {
+            "Label": "iReg2",
+            "Direction": "WEST",
+            "Bitsize": "32"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.Tunnel",
+          "x": 41,
+          "y": 25,
+          "properties": {
+            "Label": "iReg3",
+            "Direction": "WEST",
+            "Bitsize": "32"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.Tunnel",
+          "x": 41,
+          "y": 26,
+          "properties": {
+            "Label": "iReg4",
+            "Direction": "WEST",
+            "Bitsize": "32"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.Tunnel",
+          "x": 41,
+          "y": 27,
+          "properties": {
+            "Label": "iReg5",
+            "Direction": "WEST",
+            "Bitsize": "32"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.Tunnel",
+          "x": 41,
+          "y": 28,
+          "properties": {
+            "Label": "iReg6",
+            "Direction": "WEST",
+            "Bitsize": "32"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.Tunnel",
+          "x": 41,
+          "y": 29,
+          "properties": {
+            "Label": "iReg7",
+            "Direction": "WEST",
+            "Bitsize": "32"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.Tunnel",
+          "x": 41,
+          "y": 30,
+          "properties": {
+            "Label": "iReg8",
+            "Direction": "WEST",
+            "Bitsize": "32"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.Tunnel",
+          "x": 41,
+          "y": 31,
+          "properties": {
+            "Label": "iReg9",
+            "Direction": "WEST",
+            "Bitsize": "32"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.io.Button",
+          "x": 41,
+          "y": 62,
+          "properties": {
+            "Label location": "NORTH",
+            "Label": "Single Step",
+            "Direction": "WEST"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.gates.NotGatePeer",
+          "x": 42,
+          "y": 54,
+          "properties": {
+            "Label location": "NORTH",
+            "Negate 0": "No",
+            "Label": "",
+            "Direction": "WEST",
+            "Bitsize": "1"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.gates.NotGatePeer",
+          "x": 46,
+          "y": 46,
+          "properties": {
+            "Label location": "NORTH",
+            "Negate 0": "No",
+            "Label": "",
+            "Direction": "WEST",
+            "Bitsize": "1"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.gates.OrGatePeer",
+          "x": 28,
+          "y": 44,
+          "properties": {
+            "Negate 1": "No",
+            "Label location": "NORTH",
+            "Negate 0": "No",
+            "Negate 3": "No",
+            "Negate 2": "No",
+            "Number of Inputs": "5",
+            "Negate 4": "No",
+            "Label": "",
+            "Direction": "WEST",
+            "Bitsize": "1"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.arithmetic.ComparatorPeer",
+          "x": 51,
+          "y": 42,
+          "properties": {
+            "Comparison Type": "2\u0027s complement",
+            "Label location": "NORTH",
+            "Label": "",
+            "Bitsize": "6"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.arithmetic.ComparatorPeer",
+          "x": 54,
+          "y": 50,
+          "properties": {
+            "Comparison Type": "2\u0027s complement",
+            "Label location": "NORTH",
+            "Label": "",
+            "Bitsize": "4"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.SplitterPeer",
+          "x": 60,
+          "y": 21,
+          "properties": {
+            "Bit 27": "None",
+            "Input location": "Left/Top",
+            "Bit 28": "0",
+            "Bit 29": "0",
+            "Label": "",
+            "Bit 23": "None",
+            "Bit 24": "None",
+            "Bit 25": "None",
+            "Bit 26": "None",
+            "Direction": "EAST",
+            "Bit 20": "None",
+            "Bitsize": "32",
+            "Bit 21": "None",
+            "Bit 22": "None",
+            "Bit 6": "None",
+            "Bit 5": "None",
+            "Bit 4": "None",
+            "Label location": "NORTH",
+            "Bit 3": "None",
+            "Bit 9": "None",
+            "Bit 8": "None",
+            "Bit 7": "None",
+            "Fanouts": "1",
+            "Bit 16": "None",
+            "Bit 17": "None",
+            "Bit 18": "None",
+            "Bit 19": "None",
+            "Bit 12": "None",
+            "Bit 13": "None",
+            "Bit 14": "None",
+            "Bit 15": "None",
+            "Bit 2": "None",
+            "Bit 30": "0",
+            "Bit 1": "None",
+            "Bit 31": "0",
+            "Bit 0": "None",
+            "Bit 10": "None",
+            "Bit 11": "None"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.SplitterPeer",
+          "x": 68,
+          "y": 21,
+          "properties": {
+            "Bit 27": "None",
+            "Input location": "Left/Top",
+            "Bit 28": "0",
+            "Bit 29": "0",
+            "Label": "",
+            "Bit 23": "None",
+            "Bit 24": "None",
+            "Bit 25": "None",
+            "Bit 26": "None",
+            "Direction": "EAST",
+            "Bit 20": "None",
+            "Bitsize": "32",
+            "Bit 21": "None",
+            "Bit 22": "None",
+            "Bit 6": "None",
+            "Bit 5": "None",
+            "Bit 4": "None",
+            "Label location": "NORTH",
+            "Bit 3": "None",
+            "Bit 9": "None",
+            "Bit 8": "None",
+            "Bit 7": "None",
+            "Fanouts": "1",
+            "Bit 16": "None",
+            "Bit 17": "None",
+            "Bit 18": "None",
+            "Bit 19": "None",
+            "Bit 12": "None",
+            "Bit 13": "None",
+            "Bit 14": "None",
+            "Bit 15": "None",
+            "Bit 2": "None",
+            "Bit 30": "0",
+            "Bit 1": "None",
+            "Bit 31": "0",
+            "Bit 0": "None",
+            "Bit 10": "None",
+            "Bit 11": "None"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.Probe",
+          "x": 55,
+          "y": 16,
+          "properties": {
+            "Label location": "NORTH",
+            "Label": "µstate",
+            "Direction": "SOUTH",
+            "Bitsize": "6"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.plexers.DecoderPeer",
+          "x": 65,
+          "y": 26,
+          "properties": {
+            "Selector location": "Left/Top",
+            "Label location": "NORTH",
+            "Selector bits": "4",
+            "Label": "",
+            "Direction": "EAST"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.gates.AndGatePeer",
+          "x": 21,
+          "y": 40,
+          "properties": {
+            "Negate 1": "No",
+            "Label location": "NORTH",
+            "Negate 0": "No",
+            "Number of Inputs": "2",
+            "Label": "",
+            "Direction": "NORTH",
+            "Bitsize": "1"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.ClockPeer",
+          "x": 17,
+          "y": 61,
+          "properties": {
+            "Label location": "NORTH",
+            "Label": "",
+            "Direction": "EAST"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.io.LED",
+          "x": 80,
+          "y": 31,
+          "properties": {
+            "Label location": "NORTH",
+            "Off Color": "0xa9a9a9ff",
+            "Label": "ADDI",
+            "On Color": "0xff0000ff",
+            "Direction": "EAST"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.io.LED",
+          "x": 80,
+          "y": 26,
+          "properties": {
+            "Label location": "NORTH",
+            "Off Color": "0xa9a9a9ff",
+            "Label": "ADD",
+            "On Color": "0xff0000ff",
+            "Direction": "EAST"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.io.LED",
+          "x": 80,
+          "y": 36,
+          "properties": {
+            "Label location": "NORTH",
+            "Off Color": "0xa9a9a9ff",
+            "Label": "SW",
+            "On Color": "0xff0000ff",
+            "Direction": "EAST"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.io.LED",
+          "x": 80,
+          "y": 51,
+          "properties": {
+            "Label location": "NORTH",
+            "Off Color": "0xa9a9a9ff",
+            "Label": "EI",
+            "On Color": "0xff0000ff",
+            "Direction": "EAST"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.io.LED",
+          "x": 86,
+          "y": 31,
+          "properties": {
+            "Label location": "NORTH",
+            "Off Color": "0xa9a9a9ff",
+            "Label": "LW",
+            "On Color": "0xff0000ff",
+            "Direction": "EAST"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.io.LED",
+          "x": 86,
+          "y": 51,
+          "properties": {
+            "Label location": "NORTH",
+            "Off Color": "0xa9a9a9ff",
+            "Label": "DI",
+            "On Color": "0xff0000ff",
+            "Direction": "EAST"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.io.LED",
+          "x": 86,
+          "y": 56,
+          "properties": {
+            "Label location": "NORTH",
+            "Off Color": "0xa9a9a9ff",
+            "Label": "IN",
+            "On Color": "0xff0000ff",
+            "Direction": "EAST"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.io.LED",
+          "x": 86,
+          "y": 46,
+          "properties": {
+            "Label location": "NORTH",
+            "Off Color": "0xa9a9a9ff",
+            "Label": "LEA",
+            "On Color": "0xff0000ff",
+            "Direction": "EAST"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.io.LED",
+          "x": 80,
+          "y": 46,
+          "properties": {
+            "Label location": "NORTH",
+            "Off Color": "0xa9a9a9ff",
+            "Label": "SKP",
+            "On Color": "0xff0000ff",
+            "Direction": "EAST"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.io.LED",
+          "x": 86,
+          "y": 26,
+          "properties": {
+            "Label location": "NORTH",
+            "Off Color": "0xa9a9a9ff",
+            "Label": "NAND",
+            "On Color": "0xff0000ff",
+            "Direction": "EAST"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.io.LED",
+          "x": 80,
+          "y": 56,
+          "properties": {
+            "Label location": "NORTH",
+            "Off Color": "0xa9a9a9ff",
+            "Label": "RETI",
+            "On Color": "0xff0000ff",
+            "Direction": "EAST"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.io.LED",
+          "x": 86,
+          "y": 41,
+          "properties": {
+            "Label location": "NORTH",
+            "Off Color": "0xa9a9a9ff",
+            "Label": "HALT",
+            "On Color": "0xff0000ff",
+            "Direction": "EAST"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.io.LED",
+          "x": 86,
+          "y": 36,
+          "properties": {
+            "Label location": "NORTH",
+            "Off Color": "0xa9a9a9ff",
+            "Label": "GOTO",
+            "On Color": "0xff0000ff",
+            "Direction": "EAST"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.io.LED",
+          "x": 80,
+          "y": 41,
+          "properties": {
+            "Label location": "NORTH",
+            "Off Color": "0xa9a9a9ff",
+            "Label": "JALR",
+            "On Color": "0xff0000ff",
+            "Direction": "EAST"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.ConstantPeer",
+          "x": 45,
+          "y": 44,
+          "properties": {
+            "Label location": "NORTH",
+            "Label": "",
+            "Value": "2",
+            "Direction": "EAST",
+            "Bitsize": "6"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.ConstantPeer",
+          "x": 50,
+          "y": 52,
+          "properties": {
+            "Label location": "NORTH",
+            "Label": "",
+            "Value": "13",
+            "Direction": "EAST",
+            "Bitsize": "4"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.ConstantPeer",
+          "x": 28,
+          "y": 62,
+          "properties": {
+            "Label location": "NORTH",
+            "Label": "1\u003dRun",
+            "Value": "1",
+            "Direction": "EAST",
+            "Bitsize": "1"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.SubcircuitPeer",
+          "x": 38,
+          "y": 18,
+          "properties": {
+            "Label location": "NORTH",
+            "Label": "",
+            "Subcircuit": "DataPath"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.misc.Text",
+          "x": 74,
+          "y": 6,
+          "properties": {
+            "Text": "Most components have been\nsynthesized from Verilog."
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.Tunnel",
+          "x": 120,
+          "y": 28,
+          "properties": {
+            "Label": "iReg10",
+            "Direction": "EAST",
+            "Bitsize": "32"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.Tunnel",
+          "x": 120,
+          "y": 37,
+          "properties": {
+            "Label": "iReg11",
+            "Direction": "EAST",
+            "Bitsize": "32"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.Tunnel",
+          "x": 120,
+          "y": 46,
+          "properties": {
+            "Label": "iReg12",
+            "Direction": "EAST",
+            "Bitsize": "32"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.Tunnel",
+          "x": 120,
+          "y": 55,
+          "properties": {
+            "Label": "iReg13",
+            "Direction": "EAST",
+            "Bitsize": "32"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.Tunnel",
+          "x": 120,
+          "y": 64,
+          "properties": {
+            "Label": "iReg14",
+            "Direction": "EAST",
+            "Bitsize": "32"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.Tunnel",
+          "x": 120,
+          "y": 73,
+          "properties": {
+            "Label": "iReg15",
+            "Direction": "EAST",
+            "Bitsize": "32"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.Tunnel",
+          "x": 41,
+          "y": 32,
+          "properties": {
+            "Label": "iReg10",
+            "Direction": "WEST",
+            "Bitsize": "32"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.Tunnel",
+          "x": 41,
+          "y": 33,
+          "properties": {
+            "Label": "iReg11",
+            "Direction": "WEST",
+            "Bitsize": "32"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.Tunnel",
+          "x": 41,
+          "y": 34,
+          "properties": {
+            "Label": "iReg12",
+            "Direction": "WEST",
+            "Bitsize": "32"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.Tunnel",
+          "x": 41,
+          "y": 35,
+          "properties": {
+            "Label": "iReg13",
+            "Direction": "WEST",
+            "Bitsize": "32"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.Tunnel",
+          "x": 41,
+          "y": 36,
+          "properties": {
+            "Label": "iReg14",
+            "Direction": "WEST",
+            "Bitsize": "32"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.Tunnel",
+          "x": 41,
+          "y": 37,
+          "properties": {
+            "Label": "iReg15",
+            "Direction": "WEST",
+            "Bitsize": "32"
+          }
+        }
+      ],
+      "wires": [
+        {
+          "x": 19,
+          "y": 62,
+          "length": 3,
+          "isHorizontal": true
+        },
+        {
+          "x": 22,
+          "y": 44,
+          "length": 18,
+          "isHorizontal": false
+        },
+        {
+          "x": 23,
+          "y": 19,
+          "length": 15,
+          "isHorizontal": true
+        },
+        {
+          "x": 23,
+          "y": 19,
+          "length": 18,
+          "isHorizontal": false
+        },
+        {
+          "x": 23,
+          "y": 37,
+          "length": 3,
+          "isHorizontal": false
+        },
+        {
+          "x": 23,
+          "y": 37,
+          "length": 9,
+          "isHorizontal": true
+        },
+        {
+          "x": 24,
+          "y": 44,
+          "length": 2,
+          "isHorizontal": false
+        },
+        {
+          "x": 24,
+          "y": 46,
+          "length": 4,
+          "isHorizontal": true
+        },
+        {
+          "x": 30,
+          "y": 63,
+          "length": 2,
+          "isHorizontal": true
+        },
+        {
+          "x": 32,
+          "y": 37,
+          "length": 7,
+          "isHorizontal": false
+        },
+        {
+          "x": 32,
+          "y": 45,
+          "length": 5,
+          "isHorizontal": true
+        },
+        {
+          "x": 32,
+          "y": 46,
+          "length": 3,
+          "isHorizontal": true
+        },
+        {
+          "x": 32,
+          "y": 47,
+          "length": 14,
+          "isHorizontal": true
+        },
+        {
+          "x": 32,
+          "y": 48,
+          "length": 15,
+          "isHorizontal": false
+        },
+        {
+          "x": 35,
+          "y": 46,
+          "length": 9,
+          "isHorizontal": false
+        },
+        {
+          "x": 35,
+          "y": 55,
+          "length": 4,
+          "isHorizontal": true
+        },
+        {
+          "x": 37,
+          "y": 45,
+          "length": 18,
+          "isHorizontal": false
+        },
+        {
+          "x": 37,
+          "y": 63,
+          "length": 4,
+          "isHorizontal": true
+        },
+        {
+          "x": 41,
+          "y": 20,
+          "length": 6,
+          "isHorizontal": true
+        },
+        {
+          "x": 41,
+          "y": 21,
+          "length": 19,
+          "isHorizontal": true
+        },
+        {
+          "x": 41,
+          "y": 22,
+          "length": 6,
+          "isHorizontal": true
+        },
+        {
+          "x": 45,
+          "y": 55,
+          "length": 15,
+          "isHorizontal": true
+        },
+        {
+          "x": 47,
+          "y": 12,
+          "length": 8,
+          "isHorizontal": false
+        },
+        {
+          "x": 47,
+          "y": 22,
+          "length": 11,
+          "isHorizontal": true
+        },
+        {
+          "x": 47,
+          "y": 22,
+          "length": 21,
+          "isHorizontal": false
+        },
+        {
+          "x": 47,
+          "y": 43,
+          "length": 4,
+          "isHorizontal": true
+        },
+        {
+          "x": 49,
+          "y": 47,
+          "length": 8,
+          "isHorizontal": true
+        },
+        {
+          "x": 50,
+          "y": 49,
+          "length": 2,
+          "isHorizontal": false
+        },
+        {
+          "x": 50,
+          "y": 49,
+          "length": 12,
+          "isHorizontal": true
+        },
+        {
+          "x": 50,
+          "y": 51,
+          "length": 4,
+          "isHorizontal": true
+        },
+        {
+          "x": 55,
+          "y": 44,
+          "length": 2,
+          "isHorizontal": true
+        },
+        {
+          "x": 57,
+          "y": 44,
+          "length": 3,
+          "isHorizontal": false
+        },
+        {
+          "x": 58,
+          "y": 18,
+          "length": 4,
+          "isHorizontal": false
+        },
+        {
+          "x": 58,
+          "y": 52,
+          "length": 2,
+          "isHorizontal": true
+        },
+        {
+          "x": 60,
+          "y": 21,
+          "length": 5,
+          "isHorizontal": true
+        },
+        {
+          "x": 60,
+          "y": 52,
+          "length": 3,
+          "isHorizontal": false
+        },
+        {
+          "x": 62,
+          "y": 23,
+          "length": 26,
+          "isHorizontal": false
+        },
+        {
+          "x": 65,
+          "y": 12,
+          "length": 9,
+          "isHorizontal": false
+        },
+        {
+          "x": 65,
+          "y": 21,
+          "length": 3,
+          "isHorizontal": true
+        },
+        {
+          "x": 67,
+          "y": 26,
+          "length": 3,
+          "isHorizontal": true
+        },
+        {
+          "x": 68,
+          "y": 27,
+          "length": 12,
+          "isHorizontal": true
+        },
+        {
+          "x": 68,
+          "y": 28,
+          "length": 18,
+          "isHorizontal": true
+        },
+        {
+          "x": 68,
+          "y": 29,
+          "length": 12,
+          "isHorizontal": true
+        },
+        {
+          "x": 68,
+          "y": 30,
+          "length": 18,
+          "isHorizontal": true
+        },
+        {
+          "x": 68,
+          "y": 31,
+          "length": 11,
+          "isHorizontal": true
+        },
+        {
+          "x": 68,
+          "y": 32,
+          "length": 10,
+          "isHorizontal": true
+        },
+        {
+          "x": 68,
+          "y": 33,
+          "length": 9,
+          "isHorizontal": true
+        },
+        {
+          "x": 68,
+          "y": 34,
+          "length": 8,
+          "isHorizontal": true
+        },
+        {
+          "x": 68,
+          "y": 35,
+          "length": 7,
+          "isHorizontal": true
+        },
+        {
+          "x": 68,
+          "y": 36,
+          "length": 6,
+          "isHorizontal": true
+        },
+        {
+          "x": 68,
+          "y": 37,
+          "length": 5,
+          "isHorizontal": true
+        },
+        {
+          "x": 68,
+          "y": 38,
+          "length": 4,
+          "isHorizontal": true
+        },
+        {
+          "x": 68,
+          "y": 39,
+          "length": 3,
+          "isHorizontal": true
+        },
+        {
+          "x": 68,
+          "y": 40,
+          "length": 2,
+          "isHorizontal": true
+        },
+        {
+          "x": 70,
+          "y": 23,
+          "length": 3,
+          "isHorizontal": false
+        },
+        {
+          "x": 70,
+          "y": 40,
+          "length": 16,
+          "isHorizontal": false
+        },
+        {
+          "x": 70,
+          "y": 56,
+          "length": 16,
+          "isHorizontal": true
+        },
+        {
+          "x": 71,
+          "y": 39,
+          "length": 18,
+          "isHorizontal": false
+        },
+        {
+          "x": 71,
+          "y": 57,
+          "length": 9,
+          "isHorizontal": true
+        },
+        {
+          "x": 72,
+          "y": 38,
+          "length": 12,
+          "isHorizontal": false
+        },
+        {
+          "x": 72,
+          "y": 50,
+          "length": 14,
+          "isHorizontal": true
+        },
+        {
+          "x": 73,
+          "y": 37,
+          "length": 15,
+          "isHorizontal": false
+        },
+        {
+          "x": 73,
+          "y": 52,
+          "length": 7,
+          "isHorizontal": true
+        },
+        {
+          "x": 74,
+          "y": 36,
+          "length": 9,
+          "isHorizontal": false
+        },
+        {
+          "x": 74,
+          "y": 45,
+          "length": 12,
+          "isHorizontal": true
+        },
+        {
+          "x": 75,
+          "y": 35,
+          "length": 12,
+          "isHorizontal": false
+        },
+        {
+          "x": 75,
+          "y": 47,
+          "length": 5,
+          "isHorizontal": true
+        },
+        {
+          "x": 76,
+          "y": 34,
+          "length": 1,
+          "isHorizontal": false
+        },
+        {
+          "x": 76,
+          "y": 35,
+          "length": 1,
+          "isHorizontal": true
+        },
+        {
+          "x": 77,
+          "y": 33,
+          "length": 1,
+          "isHorizontal": false
+        },
+        {
+          "x": 77,
+          "y": 34,
+          "length": 1,
+          "isHorizontal": true
+        },
+        {
+          "x": 77,
+          "y": 35,
+          "length": 4,
+          "isHorizontal": false
+        },
+        {
+          "x": 77,
+          "y": 39,
+          "length": 9,
+          "isHorizontal": true
+        },
+        {
+          "x": 78,
+          "y": 32,
+          "length": 1,
+          "isHorizontal": false
+        },
+        {
+          "x": 78,
+          "y": 33,
+          "length": 8,
+          "isHorizontal": true
+        },
+        {
+          "x": 78,
+          "y": 34,
+          "length": 4,
+          "isHorizontal": false
+        },
+        {
+          "x": 78,
+          "y": 38,
+          "length": 2,
+          "isHorizontal": true
+        },
+        {
+          "x": 79,
+          "y": 31,
+          "length": 6,
+          "isHorizontal": false
+        },
+        {
+          "x": 79,
+          "y": 37,
+          "length": 1,
+          "isHorizontal": true
+        },
+        {
+          "x": 80,
+          "y": 29,
+          "length": 3,
+          "isHorizontal": false
+        },
+        {
+          "x": 80,
+          "y": 38,
+          "length": 4,
+          "isHorizontal": false
+        },
+        {
+          "x": 86,
+          "y": 27,
+          "length": 1,
+          "isHorizontal": false
+        },
+        {
+          "x": 86,
+          "y": 30,
+          "length": 2,
+          "isHorizontal": false
+        },
+        {
+          "x": 86,
+          "y": 33,
+          "length": 4,
+          "isHorizontal": false
+        },
+        {
+          "x": 86,
+          "y": 39,
+          "length": 3,
+          "isHorizontal": false
+        },
+        {
+          "x": 86,
+          "y": 45,
+          "length": 2,
+          "isHorizontal": false
+        },
+        {
+          "x": 86,
+          "y": 50,
+          "length": 2,
+          "isHorizontal": false
+        },
+        {
+          "x": 86,
+          "y": 56,
+          "length": 1,
+          "isHorizontal": false
+        }
+      ]
+    },
+    {
+      "name": "Memory",
+      "components": [
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.gates.NotGatePeer",
+          "x": 35,
+          "y": 30,
+          "properties": {
+            "Label location": "NORTH",
+            "Negate 0": "No",
+            "Label": "",
+            "Direction": "EAST",
+            "Bitsize": "1"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.PinPeer",
+          "x": 9,
+          "y": 30,
+          "properties": {
+            "Label location": "WEST",
+            "Label": "Write",
+            "Is input?": "Yes",
+            "Direction": "EAST",
+            "Bitsize": "1"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.PinPeer",
+          "x": 7,
+          "y": 12,
+          "properties": {
+            "Label location": "WEST",
+            "Label": "In",
+            "Is input?": "Yes",
+            "Direction": "EAST",
+            "Bitsize": "32"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.PinPeer",
+          "x": 71,
+          "y": 12,
+          "properties": {
+            "Label location": "EAST",
+            "Label": "Out",
+            "Is input?": "No",
+            "Direction": "WEST",
+            "Bitsize": "32"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.PinPeer",
+          "x": 9,
+          "y": 26,
+          "properties": {
+            "Label location": "WEST",
+            "Label": "Clock",
+            "Is input?": "Yes",
+            "Direction": "EAST",
+            "Bitsize": "1"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.memory.RAMPeer",
+          "x": 37,
+          "y": 13,
+          "properties": {
+            "Label location": "NORTH",
+            "Label": "",
+            "Bitsize": "32",
+            "Address bits": "16"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.PinPeer",
+          "x": 7,
+          "y": 6,
+          "properties": {
+            "Label location": "WEST",
+            "Label": "Address",
+            "Is input?": "Yes",
+            "Direction": "EAST",
+            "Bitsize": "16"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.wiring.ConstantPeer",
+          "x": 33,
+          "y": 22,
+          "properties": {
+            "Label location": "NORTH",
+            "Label": "",
+            "Value": "1",
+            "Direction": "EAST",
+            "Bitsize": "1"
+          }
+        },
+        {
+          "name": "com.ra4king.circuitsim.gui.peers.gates.ControlledBufferPeer",
+          "x": 46,
+          "y": 36,
+          "properties": {
+            "Label location": "NORTH",
+            "Label": "",
+            "Direction": "EAST",
+            "Bitsize": "32"
+          }
+        }
+      ],
+      "wires": [
+        {
+          "x": 11,
+          "y": 27,
+          "length": 29,
+          "isHorizontal": true
+        },
+        {
+          "x": 11,
+          "y": 31,
+          "length": 9,
+          "isHorizontal": true
+        },
+        {
+          "x": 15,
+          "y": 7,
+          "length": 19,
+          "isHorizontal": true
+        },
+        {
+          "x": 15,
+          "y": 15,
+          "length": 12,
+          "isHorizontal": true
+        },
+        {
+          "x": 20,
+          "y": 31,
+          "length": 11,
+          "isHorizontal": false
+        },
+        {
+          "x": 20,
+          "y": 31,
+          "length": 15,
+          "isHorizontal": true
+        },
+        {
+          "x": 20,
+          "y": 42,
+          "length": 27,
+          "isHorizontal": true
+        },
+        {
+          "x": 27,
+          "y": 15,
+          "length": 22,
+          "isHorizontal": false
+        },
+        {
+          "x": 27,
+          "y": 37,
+          "length": 19,
+          "isHorizontal": true
+        },
+        {
+          "x": 34,
+          "y": 7,
+          "length": 8,
+          "isHorizontal": false
+        },
+        {
+          "x": 34,
+          "y": 15,
+          "length": 3,
+          "isHorizontal": true
+        },
+        {
+          "x": 35,
+          "y": 23,
+          "length": 6,
+          "isHorizontal": true
+        },
+        {
+          "x": 38,
+          "y": 31,
+          "length": 4,
+          "isHorizontal": true
+        },
+        {
+          "x": 40,
+          "y": 18,
+          "length": 9,
+          "isHorizontal": false
+        },
+        {
+          "x": 41,
+          "y": 18,
+          "length": 5,
+          "isHorizontal": false
+        },
+        {
+          "x": 42,
+          "y": 18,
+          "length": 13,
+          "isHorizontal": false
+        },
+        {
+          "x": 46,
+          "y": 15,
+          "length": 8,
+          "isHorizontal": true
+        },
+        {
+          "x": 47,
+          "y": 38,
+          "length": 4,
+          "isHorizontal": false
+        },
+        {
+          "x": 48,
+          "y": 37,
+          "length": 6,
+          "isHorizontal": true
+        },
+        {
+          "x": 54,
+          "y": 15,
+          "length": 17,
+          "isHorizontal": true
+        },
+        {
+          "x": 54,
+          "y": 15,
+          "length": 22,
+          "isHorizontal": false
+        }
+      ]
+    }
+  ]
+}

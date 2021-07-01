@@ -179,18 +179,18 @@ class VLowering:
             return self.circuit.get_port(expr.var.name[1])[int(expr.lsb.value), int(expr.msb.value)]
         elif isinstance(expr, df.DFBranch):
 
-            # spec_mux = self._speculative_mux_folding(expr, ident=ident, bits=bits)
-            # if spec_mux:
-            #     return spec_mux
+            spec_mux = self._speculative_mux_folding(expr, ident=ident, bits=bits)
+            if spec_mux:
+                return spec_mux
 
             false_node = self._lower_expr(expr.falsenode, ident=ident, bits=bits) if expr.falsenode else ident
             true_node = self._lower_expr(expr.truenode, ident=ident, bits=bits) if expr.truenode else ident
 
-            # if isinstance(expr.condnode, df.DFIntConst):
-            #     if expr.condnode.eval():
-            #         return true_node
-            #     else:
-            #         return false_node
+            if isinstance(expr.condnode, df.DFIntConst):
+                if expr.condnode.eval():
+                    return true_node
+                else:
+                    return false_node
 
             return ir.ASTMultiplexer(self._lower_expr(expr.condnode, bits=1), {
                 0: false_node,
